@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from agent import Starty
+from app.agent import Starty  # Importación corregida
 import os  # Importar os para acceder a las variables de entorno
 
 app = Flask(__name__)
