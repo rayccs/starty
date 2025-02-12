@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from agent import Starty
+import os  # Importar os para acceder a las variables de entorno
 
 app = Flask(__name__)
 starty = Starty()
@@ -50,8 +51,15 @@ def start_cli():
 
 if __name__ == '__main__':
     import sys
+
+    # Verificar si se está ejecutando en modo CLI
     if len(sys.argv) > 1 and sys.argv[1] == "cli":
         start_cli()
     else:
         print(WELCOME_MESSAGE)  # Starty saluda al iniciar el servidor
-        app.run(host='0.0.0.0', port=5000)
+
+        # Obtener el puerto de la variable de entorno o usar 5000 por defecto
+        port = int(os.environ.get('PORT', 5000))
+
+        # Iniciar la aplicación Flask
+        app.run(host='0.0.0.0', port=port)
